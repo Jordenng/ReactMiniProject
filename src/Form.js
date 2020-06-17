@@ -9,21 +9,21 @@ export default class Form extends React.Component {
         isClicked: false,
         Message : '',
         Date: " ",
-        UserName: "chalrie"
-    }
-    handleSubmit = (e) => {
-        e.preventDefault()
+        UserName: "Charlie"
     }
 
-    handleChange = (e) => {
+    handleSubmit = (event) => {
+        event.preventDefault()
+    }
+
+    handleChange = (event) => {
         this.setState({
-            [e.target.name]: e.target.value
+            [event.target.name]: event.target.value
         })
     }
 
     handleClick = () => {
         const copyDataArr = Object.assign([], this.state.dataArr)
-
         copyDataArr.push({
             Message : this.state.Message,
             Date: this.state.Date,
@@ -34,7 +34,6 @@ export default class Form extends React.Component {
             isClicked : true,
             dataArr : copyDataArr
         })
-
     }
 
     render() {
@@ -43,14 +42,14 @@ export default class Form extends React.Component {
             <div>
             <h1>Form and Input</h1>
             <form onSubmit={this.handleSubmit}>
-                <input type="text" name="Message"  placeholder="Sumbit Message" onChange={this.handleChange}/>
-                <input type="text" name="Date"  placeholder="Sumbit Date" onChange={this.handleChange}/>
-                <input type="text" name="User Name"  placeholder="Sumbit User Name" onChange={this.handleChange}/>
+                <input type="text" name="Message"  placeholder="Submit Message" onChange={this.handleChange}/>
+                <input type="text" name="Date"  placeholder="Submit Date" onChange={this.handleChange}/>
+                <input type="text" name="User Name"  placeholder="Submit User Name" onChange={this.handleChange}/>
                 <button
                     onClick={this.handleClick}
-                    disabled={this.state.Message.length >= 140}>Sumbit</button>
+                    disabled={this.state.Message.length >= 140}>Submit</button>
                 <nav>
-                    <Link to={"/user"}> <li>User</li></Link>
+                    <Link to={"/user"} name={this.state.UserName} > <li>User Name</li></Link>
                 </nav>
             </form>
                 { this.state.isClicked ?
@@ -62,11 +61,8 @@ export default class Form extends React.Component {
                                     <p> Date: {post.Date} </p>
                                     <p>UserName: {post.UserName}</p>
                                 </div>
-
-                        )
-                        }
-                    )
-                    : null }
+                        )}
+                    ) : null }
             </div>
         );
     }
